@@ -29,7 +29,7 @@ void Mario::draw() {
     ofDrawRectangle(x, y, width, height);
 }
 float terminalVelocity(float y_vel) {
-    const float maxvel = -15;
+    const float maxvel = -20;
     if (y_vel < maxvel) {
         return maxvel;
     }
@@ -56,7 +56,7 @@ void Mario::update() {
 
 //--------------------------------------------------------------
 void Mario::jump() {
-    if ((alive == true) && (jumpcount < 2)) {
+    if ((alive == true) && (jumpcount < 10)) {
         jumpcount += 1;
         y_vel += lift;
     }

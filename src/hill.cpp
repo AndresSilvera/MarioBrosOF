@@ -2,7 +2,8 @@
 
 //--------------------------------------------------------------
 void Hill::setup(float x_in, float y_in) {
-    x = x_in;
+    // use current time as seed for random generator
+    x = x_in + ((std::rand() % 100) * 80);
     y = y_in;
     collision = false;
     height = ((std::rand() % 200) + 30) * -1;

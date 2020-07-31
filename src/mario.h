@@ -13,7 +13,7 @@ class Mario {
     bool tall;
     bool landed;
     const float gravity = 1.5;
-    const float lift = -20;
+    const float lift = -25;
     float y_vel;
     bool alive;
     void setup();

@@ -23,6 +23,6 @@ class ofApp : public ofBaseApp {
     void dragEvent(ofDragInfo dragInfo);
     void gotMessage(ofMessage msg);
     Mario M;
-    static const int num_hills = 5;
+    static const int num_hills = 100;
     Hill Hills[num_hills];
 };

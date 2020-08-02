@@ -12,6 +12,9 @@ class Mario {
     float jumpcount;
     bool tall;
     bool landed;
+    float speed;
+    bool is_fwd;
+    bool is_collided;
     const float gravity = 1.5;
     const float lift = -25;
     float y_vel;

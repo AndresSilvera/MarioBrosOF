@@ -11,6 +11,9 @@ void Mario::setup() {
     alive = true;
     jumpcount = 0;
     landed = true;
+    speed = 0;
+    is_fwd = true;
+    is_collided = false;
 }
 
 //--------------------------------------------------------------
@@ -19,11 +22,6 @@ void Mario::draw() {
         height = 80;
     } else {
         height = 40;
-    }
-    if (alive == true) {
-        ofSetBackgroundColor(135, 206, 235);
-    } else {
-        ofSetBackgroundColor(127, 0, 0);
     }
     ofSetColor(255, 0, 0);
     ofDrawRectangle(x, y, width, height);
@@ -38,14 +36,16 @@ float terminalVelocity(float y_vel) {
 //--------------------------------------------------------------
 void Mario::update() {
 
-    y_vel += gravity;
-    y += terminalVelocity(y_vel);
+    if (!landed) {
+        y_vel += gravity;
+    }
 
+    y += terminalVelocity(y_vel);
     if (y + height > ofGetHeight() * 0.8) {
         y = (ofGetHeight() * 0.8) - height;
         y_vel = 0;
         landed = true;
-    } else {
+    } else{
         landed = false;
     }
 
@@ -56,7 +56,7 @@ void Mario::update() {
 
 //--------------------------------------------------------------
 void Mario::jump() {
-    if ((alive == true) && (jumpcount < 10)) {
+    if ((alive == true) && (jumpcount < 2)) {
         jumpcount += 1;
         y_vel += lift;
     }

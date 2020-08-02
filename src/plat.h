@@ -2,15 +2,15 @@
 
 #include "ofMain.h"
 #include "mario.h"
-class Hill {
+
+class Platform {
   public:
     float x, y;
-    float height;
+    float width;
     bool collision;
-    const float width = 75;
+    const float height = 50;
     void setup(float x_in, float y_in);
     void update(float speed);
     void draw();
-    bool is_within_boundsx(Mario M);
-    bool is_within_boundsy(Mario M);
+    bool is_within_bounds(Mario M);
 };

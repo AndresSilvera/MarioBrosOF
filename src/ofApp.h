@@ -3,6 +3,7 @@
 #include "ofMain.h"
 #include "mario.h"
 #include "hill.h"
+#include "plat.h"
 
 class ofApp : public ofBaseApp {
 
@@ -23,6 +24,7 @@ class ofApp : public ofBaseApp {
     void dragEvent(ofDragInfo dragInfo);
     void gotMessage(ofMessage msg);
     Mario M;
-    static const int num_hills = 100;
+    static const int num_hills = 1;
     Hill Hills[num_hills];
+    Platform P;
 };

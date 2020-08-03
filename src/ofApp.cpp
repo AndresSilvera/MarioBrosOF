@@ -68,7 +68,7 @@ void ofApp::update() {
                     } else {
                         M.speed = limiter(M.speed, 0, 10);
                     }
-                    // M.is_collided = true;
+                    M.is_collided = true;
                 } else {
                     // controls when mario is on top of the Plats
                     float M_next_next_y =
@@ -81,8 +81,6 @@ void ofApp::update() {
                             M.y = Plats[i].y - M.height;
                         }
                     }
-                    M.is_collided = true;
-                    // M.x = Plats[i].x - M.width;
                 }
                 // turns off all the Plats
                 for (int j = 0; j < num_plats; j++) {

@@ -19,6 +19,7 @@ class Mario {
     const float lift = -25;
     float y_vel;
     bool alive;
+    bool on_platform;
     void setup();
     void jump();
     void update();

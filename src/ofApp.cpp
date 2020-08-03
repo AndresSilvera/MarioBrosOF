@@ -7,7 +7,9 @@ void ofApp::setup() {
     for (int i = 0; i < num_hills; i++) {
         Hills[i].setup(ofGetWidth(), 0.8 * ofGetHeight());
     }
-    P.setup(ofGetWidth(), 300);
+    for (int i = 0; i < num_plats; i++) {
+        Plats[i].setup(ofGetWidth(), 300);
+    }
     // Hills[0].setup(ofGetWidth(), ofGetHeight());
     // Hills[1].setup(ofGetWidth() * 1.5, ofGetHeight());
 }
@@ -23,7 +25,6 @@ float limiter(float x, float min, float max) {
 //--------------------------------------------------------------
 void ofApp::update() {
 
-    M.update();
     // checks is_within_bounds for all the hills
     for (int i = 0; i < num_hills; i++) {
         if (Hills[i].is_within_boundsx(M)) {
@@ -32,6 +33,7 @@ void ofApp::update() {
                 if (M.y + M.y_vel * 2 + M.gravity + M.height >
                     Hills[i].y + Hills[i].height) {
                     M.landed = true;
+                    M.on_platform = true;
                     M.y_vel = limiter(M.y_vel, -10, 0);
                     M.y = Hills[i].y + Hills[i].height - M.height;
                 }
@@ -50,14 +52,55 @@ void ofApp::update() {
             for (int j = 0; j < num_hills; j++) {
                 Hills[j].collision = true;
             }
+            break;
+        } else {
+            M.on_platform = false;
         }
     }
+
+    if (M.on_platform == false) {
+        for (int i = 0; i < num_plats; i++) {
+            if (Plats[i].is_within_boundsx(M)) {
+                if (Plats[i].is_within_boundsy(M)) {
+                    // controls when mario is on either side (L/R) of the  Plats
+                    if (M.is_fwd) {
+                        M.speed = limiter(M.speed, -10, 0);
+                    } else {
+                        M.speed = limiter(M.speed, 0, 10);
+                    }
+                    // M.is_collided = true;
+                } else {
+                    // controls when mario is on top of the Plats
+                    float M_next_next_y =
+                        M.y + M.y_vel * 2 + M.gravity + M.height; //
+                    if (M_next_next_y > Plats[i].y) {
+                        if (M_next_next_y < Plats[i].y + Plats[i].height) {
+                            M.landed = true;
+                            M.on_platform = true;
+                            M.y_vel = limiter(M.y_vel, -10, 0);
+                            M.y = Plats[i].y - M.height;
+                        }
+                    }
+                    M.is_collided = true;
+                    // M.x = Plats[i].x - M.width;
+                }
+                // turns off all the Plats
+                for (int j = 0; j < num_plats; j++) {
+                    Plats[j].collision = true;
+                }
+                break;
+            } else {
+                M.on_platform = false;
+            }
+        }
+    }
+
+    M.update();
     for (int i = 0; i < num_hills; i++) {
         Hills[i].update(M.speed);
     }
-    P.update(M.speed);
-    if (P.is_within_bounds(M)) {
-        P.collision = true;
+    for (int i = 0; i < num_plats; i++) {
+        Plats[i].update(M.speed);
     }
 }
 
@@ -75,7 +118,9 @@ void ofApp::draw() {
     for (int i = 0; i < num_hills; i++) {
         Hills[i].draw();
     }
-    P.draw();
+    for (int i = 0; i < num_plats; i++) {
+        Plats[i].draw();
+    }
 }
 
 //--------------------------------------------------------------

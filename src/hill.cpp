@@ -3,7 +3,7 @@
 //--------------------------------------------------------------
 void Hill::setup(float x_in, float y_in) {
     // use current time as seed for random generator
-    x = x_in + 10; //((std::rand() % 100) * 75);
+    x = x_in + ((std::rand() % 100) * 75);
     y = y_in;
     collision = false;
     height = ((std::rand() % 200) + 30) * -1;
@@ -31,8 +31,8 @@ bool Hill::is_within_boundsy(Mario M) {
 void Hill::update(float speed) {
     x -= speed;
 
-    if (x < -width) {
-        // x = ofGetWidth();
-        setup(ofGetWidth(), y);
-    }
+    // if (x < -width) {
+    //     // x = ofGetWidth();
+    //     setup(ofGetWidth(), y);
+    // }
 }

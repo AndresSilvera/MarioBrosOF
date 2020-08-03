@@ -2,7 +2,6 @@
 
 #include "ofMain.h"
 #include "mario.h"
-
 class Platform {
   public:
     float x, y;
@@ -12,5 +11,6 @@ class Platform {
     void setup(float x_in, float y_in);
     void update(float speed);
     void draw();
-    bool is_within_bounds(Mario M);
+    bool is_within_boundsx(Mario M);
+    bool is_within_boundsy(Mario M);
 };

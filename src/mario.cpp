@@ -36,19 +36,22 @@ float terminalVelocity(float y_vel) {
 //--------------------------------------------------------------
 void Mario::update() {
 
+    // applies gravity when in the air
     if (!landed) {
         y_vel += gravity;
     }
-
     y += terminalVelocity(y_vel);
+    // updates landing on the ground
     if (y + height > ofGetHeight() * 0.8) {
         y = (ofGetHeight() * 0.8) - height;
         y_vel = 0;
         landed = true;
-    } else{
-        landed = false;
+    } else {
+        if (!on_platform) {
+            landed = false;
+        }
     }
-
+    // resets jump count when landed
     if (landed == true) {
         jumpcount = 0;
     }
@@ -59,5 +62,6 @@ void Mario::jump() {
     if ((alive == true) && (jumpcount < 2)) {
         jumpcount += 1;
         y_vel += lift;
+        landed = false;
     }
 }
